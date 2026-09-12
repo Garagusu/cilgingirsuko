@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Şükrü Çilingir – Açılmayan Kapı Bırakmıyoruz!</title>
+<style>
+  :root{
+    --navy:#14213d;
+    --navy2:#1f3160;
+    --yellow:#ffce3f;
+    --yellow2:#ffb703;
+    --paper:#fff8e8;
+    --ink:#101010;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Segoe UI', system-ui, -apple-system, sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    overflow-x:hidden;
+  }
+
+  /* laugh burst on click anywhere */
+  .laugh-emoji{
+    position:fixed;
+    font-size:2rem;
+    pointer-events:none;
+    z-index:9999;
+    animation:floatUp 1.1s ease-out forwards;
+  }
+  @keyframes floatUp{
+    0%{transform:translateY(0) scale(0.6) rotate(0deg);opacity:1;}
+    100%{transform:translateY(-120px) scale(1.3) rotate(25deg);opacity:0;}
+  }
+
+  header{
+    background:var(--navy);
+    background-image:
+      radial-gradient(circle at 15% 30%, rgba(255,206,63,0.08) 0, transparent 40%),
+      radial-gradient(circle at 85% 70%, rgba(255,206,63,0.08) 0, transparent 40%);
+    color:var(--paper);
+    padding:64px 20px 56px;
+    text-align:center;
+    position:relative;
+    border-bottom:8px solid var(--yellow);
+  }
+  .badge{
+    display:inline-block;
+    background:var(--yellow);
+    color:var(--navy);
+    font-weight:800;
+    padding:6px 16px;
+    border-radius:999px;
+    font-size:0.85rem;
+    letter-spacing:0.3px;
+    transform:rotate(-3deg);
+    margin-bottom:22px;
+    box-shadow:0 4px 0 rgba(0,0,0,0.2);
+  }
+  h1{
+    font-size:clamp(2.1rem, 6vw, 3.4rem);
+    line-height:1.15;
+    font-weight:900;
+    max-width:780px;
+    margin:0 auto 14px;
+  }
+  h1 span{
+    color:var(--yellow);
+  }
+  .sub{
+    font-size:1.15rem;
+    max-width:560px;
+    margin:0 auto;
+    opacity:0.9;
+  }
+  .key-wrap{
+    margin-top:36px;
+    display:flex;
+    justify-content:center;
+  }
+  .key{
+    width:120px;
+    height:120px;
+    animation:jiggle 2.6s ease-in-out infinite;
+    transform-origin:70% 30%;
+  }
+  @keyframes jiggle{
+    0%,100%{transform:rotate(-8deg);}
+    50%{transform:rotate(10deg);}
+  }
+
+  section{
+    max-width:880px;
+    margin:0 auto;
+    padding:56px 24px;
+  }
+
+  .questions{
+    text-align:center;
+  }
+  .questions h2{
+    font-size:1.7rem;
+    margin-bottom:28px;
+    color:var(--navy);
+  }
+  .q-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+    text-align:left;
+  }
+  .q-card{
+    background:#fff;
+    border:3px solid var(--navy);
+    border-radius:14px;
+    padding:18px 20px;
+    font-weight:700;
+    font-size:1.02rem;
+    position:relative;
+    box-shadow:5px 5px 0 var(--navy);
+  }
+  .q-card::before{
+    content:"❓";
+    display:block;
+    font-size:1.4rem;
+    margin-bottom:6px;
+  }
+
+  .relax{
+    background:var(--navy);
+    color:var(--paper);
+    border-radius:22px;
+    text-align:center;
+    padding:48px 28px;
+    margin:56px auto;
+    max-width:880px;
+    position:relative;
+    overflow:hidden;
+  }
+  .relax::after{
+    content:"😎";
+    position:absolute;
+    font-size:9rem;
+    opacity:0.08;
+    right:-20px;
+    bottom:-30px;
+    transform:rotate(-10deg);
+  }
+  .relax p.big{
+    font-size:1.8rem;
+    font-weight:900;
+    margin-bottom:8px;
+  }
+  .relax .glasses{
+    font-size:2.6rem;
+    display:inline-block;
+    animation:pop 1.6s ease-in-out infinite;
+  }
+  @keyframes pop{
+    0%,100%{transform:scale(1) rotate(0);}
+    50%{transform:scale(1.15) rotate(-6deg);}
+  }
+
+  .promise{
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+    justify-content:center;
+    margin-top:26px;
+  }
+  .promise div{
+    background:var(--yellow);
+    color:var(--navy);
+    font-weight:800;
+    padding:12px 20px;
+    border-radius:12px;
+    font-size:1rem;
+    box-shadow:4px 4px 0 rgba(0,0,0,0.25);
+  }
+
+  .features{
+    text-align:center;
+  }
+  .features h2{
+    color:var(--navy);
+    font-size:1.7rem;
+    margin-bottom:8px;
+  }
+  .features p.tag{
+    color:#555;
+    margin-bottom:30px;
+  }
+  .feat-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+  }
+  .feat{
+    background:#fff;
+    border:3px solid var(--navy);
+    border-radius:16px;
+    padding:26px 16px;
+  }
+  .feat .emoji{
+    font-size:2.4rem;
+    display:block;
+    margin-bottom:10px;
+  }
+  .feat h3{
+    color:var(--navy);
+    margin-bottom:6px;
+    font-size:1.05rem;
+  }
+  .feat p{
+    font-size:0.92rem;
+    color:#444;
+  }
+
+  .motto{
+    text-align:center;
+    padding:50px 24px 10px;
+  }
+  .motto p{
+    font-size:1.4rem;
+    font-weight:900;
+    color:var(--navy);
+    font-style:italic;
+  }
+  .motto span{
+    display:block;
+    font-size:0.95rem;
+    font-weight:600;
+    font-style:normal;
+    color:#777;
+    margin-top:6px;
+  }
+
+  footer{
+    background:var(--yellow);
+    text-align:center;
+    padding:56px 20px 60px;
+    margin-top:40px;
+    border-top:8px solid var(--navy);
+  }
+  footer h2{
+    color:var(--navy);
+    font-size:2rem;
+    margin-bottom:6px;
+    font-weight:900;
+  }
+  footer p{
+    color:var(--navy);
+    margin-bottom:24px;
+    font-weight:600;
+  }
+  .cta-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--navy);
+    color:var(--yellow);
+    font-weight:800;
+    font-size:1.15rem;
+    padding:18px 34px;
+    border-radius:999px;
+    text-decoration:none;
+    box-shadow:0 6px 0 #0a1327;
+    transition:transform 0.12s ease;
+  }
+  .cta-btn:active{
+    transform:translateY(4px);
+    box-shadow:0 2px 0 #0a1327;
+  }
+  .name-tag{
+    margin-top:28px;
+    font-size:0.9rem;
+    color:var(--navy);
+    opacity:0.75;
+  }
+
+  @media(max-width:600px){
+    .q-grid{grid-template-columns:1fr;}
+    .feat-grid{grid-template-columns:1fr;}
+    .relax::after{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">7/24 ACİL ÇİLİNGİR HİZMETİ</div>
+  <h1>Kapıda mı kaldınız? <span>Ben varım.</span> 😎</h1>
+  <p class="sub">Anahtar içeride, kilit bozuk, kapı içeriden kilitli — fark etmez. Şükrü geliyor, kapı açılıyor, siz kahkaha atıyorsunuz.</p>
+  <div class="key-wrap">
+    <svg class="key" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="30" cy="30" r="22" fill="none" stroke="#ffce3f" stroke-width="8"/>
+      <circle cx="30" cy="30" r="8" fill="#14213d"/>
+      <rect x="46" y="25" width="46" height="10" rx="2" fill="#ffce3f"/>
+      <rect x="70" y="35" width="8" height="14" fill="#ffce3f"/>
+      <rect x="82" y="35" width="8" height="18" fill="#ffce3f"/>
+    </svg>
+  </div>
+</header>
+
+<section class="questions">
+  <h2>Tanıdık geliyor mu?</h2>
+  <div class="q-grid">
+    <div class="q-card">Kapıda mı kaldınız?</div>
+    <div class="q-card">Kapı içeriden mi kilitli?</div>
+    <div class="q-card">Anahtar içeride mi kaldı?</div>
+    <div class="q-card">Kilit mi bozuldu?</div>
+  </div>
+</section>
+
+<div class="relax">
+  <span class="glasses">😎</span>
+  <p class="big">Dert etmeyin!</p>
+  <p style="font-size:1.1rem;opacity:0.9;">Kapının önünde felsefe yapmayı bırakın, telefonu elinize alın.</p>
+  <div class="promise">
+    <div>⏱️ 1 saat içinde evinize girme garantisi</div>
+    <div>🔓 Kapınız açılır</div>
+    <div>🛋️ Siz rahatınıza bakarsınız</div>
+  </div>
+</div>
+
+<section class="features">
+  <h2>Neden Şükrü?</h2>
+  <p class="tag">Çünkü kapılar ona "hayır" demeyi bilmiyor.</p>
+  <div class="feat-grid">
+    <div class="feat">
+      <span class="emoji">⚡</span>
+      <h3>Hızlı</h3>
+      <p>Siz "geliyor musun" derken kapı önündeyimdir bile.</p>
+    </div>
+    <div class="feat">
+      <span class="emoji">🛡️</span>
+      <h3>Güvenilir</h3>
+      <p>Kilidi açarım, komşulara laf taşımam.</p>
+    </div>
+    <div class="feat">
+      <span class="emoji">🤝</span>
+      <h3>Arkadaş garantili</h3>
+      <p>Gelirim, açarım, bir de sohbet ederiz kapıda.</p>
+    </div>
+  </div>
+</section>
+
+<div class="motto">
+  <p>"Açılmayan kapı bırakmıyoruz!"</p>
+  <span>— Şükrü Çilingir'in resmi mottosu, muhtemelen bir kapıya yazılı</span>
+</div>
+
+<footer>
+  <h2>Arayın, kapınızı açalım! 🔑</h2>
+  <p>Kahkahalarınızı da unutmayın, biz zaten getiriyoruz.</p>
+  <a class="cta-btn" href="tel:+900000000000">📞 Hemen Ara</a>
+  <div class="name-tag">Şükrü Çilingir · 7/24 Acil Servis</div>
+</footer>
+
+<script>
+  const emojis = ["😂","🤣","😆","🔑","🔓"];
+  document.addEventListener("click", function(e){
+    const el = document.createElement("div");
+    el.className = "laugh-emoji";
+    el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    el.style.left = (e.clientX - 12) + "px";
+    el.style.top = (e.clientY - 12) + "px";
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(), 1100);
+  });
+</script>
+
+</body>
+</html>
