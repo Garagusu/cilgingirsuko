@@ -303,6 +303,7 @@
     </svg>
   </div>
 </header>
+
 <section class="questions">
   <h2>Tanıdık geliyor mu?</h2>
   <div class="q-grid">
@@ -354,13 +355,14 @@
 <footer>
   <h2>Arayın, kapınızı açalım! 🔑</h2>
   <p>Kahkahalarınızı da unutmayın, biz zaten getiriyoruz.</p>
-  <a class="cta-btn" href="tel:+900000000000">📞 Hemen Ara</a>
+  <a class="cta-btn" href="tel:8196644326">📞 Hemen Ara: 819 6644326</a>
   <div class="name-tag">Şükrü Çilingir · 7/24 Acil Servis</div>
 </footer>
 
 <script>
   const emojis = ["😂","🤣","😆","🔑","🔓"];
   document.addEventListener("click", function(e){
+    if(e.target.closest("a")) return; // linklerde emoji patlatma, sadece normal tıklamayı bırak
     const el = document.createElement("div");
     el.className = "laugh-emoji";
     el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
